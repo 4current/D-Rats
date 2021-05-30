@@ -40,9 +40,9 @@ import os
 import time
 
 import libxml2
-import gtk
-import gtk.glade
-import gobject
+# import gtk
+# import gtk.glade
+# import gobject
 import subprocess
 
 from d_rats.ui.main_messages import MessagesTab

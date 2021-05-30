@@ -21,17 +21,13 @@ from __future__ import print_function
 import sys
 import os
 from optparse import OptionParser
-
 import traceback
-import gtk
+# --rich_mod_1 import gtk
 
-#importing print() wrapper
-from d_rats.debug import printlog
-
+from d_rats.debug import printlog    # importing print() wrapper
+from d_rats import utils, spell      # import module to have spelling
+#                                      correction in chat and email applications
 sys.path.insert(0, os.path.join("/usr/share", "d-rats"))
-
-#import module to have spelling correction in chat and email applications
-from d_rats import utils, spell 
 spell.get_spell().test()
 
 IGNORE_ALL=False
@@ -90,17 +86,21 @@ def install_excepthook():
     # saves away the original value of sys.excepthook
     global original_excepthook
     original_excepthook = sys.excepthook
-    #invoke the manager of the initial windows to ask user what to do with exceptions
+    # invoke the manager of the initial windows to ask user what to do with exceptions
     sys.excepthook = handle_exception
+
 
 def uninstall_excepthook():
     # restores the original value of sys.excepthook
     global original_excepthook
     sys.excepthook = ignore_exception
 
+
 def ignore_exception(exctyp, value, tb):
     return
-#-------------- main d-rats module -----------------    def set_defaults(self):---
+
+
+# -------------- main d-rats module -----------------    def set_defaults(self):---
 #
 if __name__ == "__main__":
     #
@@ -123,32 +123,32 @@ if __name__ == "__main__":
     from d_rats import dplatform
 
     if opts.config:
-        printlog("D-Rats","    : re-config option found -- Reconfigure D-rats")
+        printlog("D-Rats", "    : re-config option found -- Reconfigure D-rats")
         dplatform.get_platform(opts.config)
 
     # import the D-Rats main application
     from d_rats import mainapp
 
-    #stores away the value of sys.excepthook
+    # stores away the value of sys.excepthook
     install_excepthook()
 
     import libxml2
     libxml2.debugMemory(1)
 
-    # create the mainapp with the basic options 
+    # create the main app with the basic options
     app = mainapp.MainApp(safe=opts.safe)
     
-    printlog("D-Rats","    : reloading app\n\n")
+    printlog("D-Rats", "    : reloading app\n\n")
     # finally let's open the default application triggering it differently if we 
     # want to profile it (which is running the app under profile control to see what happens) 
-    if opts.profile :
+    if opts.profile:
         printlog("D-Rats     : Executing with cprofile")
         import cProfile
         cProfile.run('app.main()')
     else:
-        #execute the main app
+        # execute the main app
         rc = app.main()
-        #restores  the original value of sys.excepthook
+        # restores  the original value of sys.excepthook
         uninstall_excepthook()
         libxml2.dumpMemory()
         sys.exit(rc)

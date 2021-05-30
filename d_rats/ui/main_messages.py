@@ -27,11 +27,11 @@ import shutil
 import random
 from datetime import datetime
 
-import gobject
-import gtk
-import pango
+#import gobject
+#import gtk
+#import pango
 
-from ConfigParser import ConfigParser,DuplicateSectionError
+from configparser import ConfigParser, DuplicateSectionError
 from glob import glob
 
 from d_rats.ui.main_common import MainWindowElement, MainWindowTab
@@ -171,7 +171,7 @@ class MessageFolderInfo(object):
         exists = os.path.exists(os.path.join(self._path, name))
         try:
             self._config.add_section(name)
-        except DuplicateSectionError, e:
+        except DuplicateSectionError as e:
             if exists:
                 raise e
 
@@ -213,7 +213,7 @@ class MessageFolders(MainWindowElement):
 
         try:
             return info.create_subfolder(os.path.basename(name))
-        except Exception, e:
+        except Exception as e:
             raise Exception("Intermediate folder of %s does not exist" % name)
 
     def create_folder(self, name):
@@ -284,7 +284,7 @@ class MessageFolders(MainWindowElement):
             info = self.get_folder(self._get_folder_by_iter(store, iter))
             try:
                 info.delete_self()
-            except OSError, e:
+            except OSError as e:
                 display_error("Unable to delete folder: %s" % e)
                 return
             store.remove(iter)
@@ -304,7 +304,7 @@ class MessageFolders(MainWindowElement):
 
             try:
                 info.rename(new_text)
-            except Exception, e:
+            except Exception as e:
                 display_error("Unable to rename: %s" % e)
                 return
 
@@ -320,7 +320,7 @@ class MessageFolders(MainWindowElement):
     def _move_cursor(self, view, step, count):
         try:
             (store, iter) = view.get_selection().get_selected()
-        except Exception, e:
+        except Exception as e:
             printlog("MainMsgs"," : Unable to find selected: %s" % e)
             return
 
@@ -418,7 +418,7 @@ class MessageFolders(MainWindowElement):
         info = self.get_folder(self._get_folder_by_iter(store, iter))
         try:
             info.rename(new_text)
-        except Exception, e:
+        except Exception as e:
             display_error("Unable to rename: %s" % e)
             return
 
@@ -868,7 +868,7 @@ class MessagesTab(MainWindowTab):
                     nform.set_field_value(df, xf(oldval))
                 else:
                     nform.set_field_value(df, oldval)
-        except Exception, e:
+        except Exception as e:
             log_exception()
             printlog("MainMsgs"," : Failed to do reply: %s" % e)
             return
@@ -904,7 +904,7 @@ class MessagesTab(MainWindowTab):
         if fn:
             try:
                 os.remove(fn)
-            except Exception, e:
+            except Exception as e:
                 printlog("MainMsgs"," : Unable to delete %s: %s" % (fn, e))
             self._messages.refresh()
         else:
@@ -943,7 +943,7 @@ class MessagesTab(MainWindowTab):
         station, port = prompt_for_station(stations, self._config)
         if not station:
             if msgrouting.msg_is_locked(fn):
-	            msgrouting.msg_unlock(fn)
+                msgrouting.msg_unlock(fn)
             return
 
         self.emit("user-send-form", station, port, fn, "foo")

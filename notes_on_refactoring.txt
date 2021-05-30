@@ -1,0 +1,48 @@
+try just running d-rats.py
+1. gtk module not available. So comment out import.
+2. six module missing. source venv/bin/activate; pip install six
+3.   File "/home/rich/Documents/D-Rats/d_rats/mainapp.py", line 642
+    printlog("Mainapp","   : reconfigure Mapwindow with new map")
+                                                                ^
+  TabError: inconsistent use of tabs and spaces in indentation
+
+so reformat _refresh_map function using pycharm to eliminate tabs.
+4. again
+  File "/home/rich/Documents/D-Rats/d_rats/mainapp.py", line 760
+    self.sc(port).send_file(station, fname, sname)
+                                                 ^
+TabError: inconsistent use of tabs and spaces in indentation
+pycharm reformat.
+5.   File "/home/rich/Documents/D-Rats/d_rats/mainapp.py", line 35, in <module>
+    sys.stdout = open(debug_path, "w", 0)
+ValueError: can't have unbuffered text I/O
+
+so remove 0.
+
+6. Now simply no output
+Process finished with exit code 1
+so
+did some linting fixes in d-rats.py
+found   File "/home/rich/Documents/D-Rats/d_rats/mainapp.py", line 55, in <module>
+    from commands import getstatusoutput
+ModuleNotFoundError: No module named 'commands'
+so replace commands with subprocess
+7.   File "/home/rich/Documents/D-Rats/d_rats/mainapp.py", line 60, in <module>
+    import serial
+ModuleNotFoundError: No module named 'serial'
+so pip install pyserial
+8. commented out gtk and gobject imports - will not be using.
+9. need to import libxml2
+...  pip install libxml2-python3
+10. in mainwindow.py comment out imports
+# import gtk
+# import gtk.glade
+# import gobject
+11.   File "/home/rich/Documents/D-Rats/d_rats/ui/main_messages.py", line 174
+    except DuplicateSectionError, e:
+so
+ resolve by replacing ',' with 'as' throughout file
+12..
+  File "/home/rich/Documents/D-Rats/d_rats/ui/main_messages.py", line 30, in <module>
+    import gobject
+ModuleNotFoundError: No module named 'gobject'

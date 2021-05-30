@@ -26,9 +26,9 @@ import time
 import re
 from datetime import datetime
 
-import gobject
-import gtk
-import pango
+# import gobject
+# import gtk
+# import pango
 
 from d_rats.ui.main_common import MainWindowElement, MainWindowTab
 from d_rats.ui.main_common import ask_for_confirmation, display_error, \

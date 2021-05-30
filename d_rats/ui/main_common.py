@@ -15,13 +15,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#importing printlog() wrapper
+# importing printlog() wrapper
 from ..debug import printlog
 
 import re
 
-import gobject
-import gtk
+# import gobject
+# import gtk
 
 from d_rats import inputdialog, miscwidgets
 from d_rats import signals
